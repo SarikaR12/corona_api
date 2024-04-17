@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+</head>
+
+<body>
+    <br><br>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>TITLE</td>
+            </tr>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+
+    <script>
+
+        let tbody = document.getElementById("body");
+
+        let fetchData = async (url) => {
+            let res = await fetch(url);
+            let result = await res.json();
+            // return result;
+
+            result.map((val, ind) => {
+                let tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${val.id}</td>
+                    <td>${val.title}</td>
+    `;
+                tbody.appendChild(tr);
+            });
+
+        };
+
+        let getAllData = async () => {
+            let api1 = await fetchData("https://jsonplaceholder.typicode.com/photos");
+
+            console.log(api1, "api1");
+        }
+        getAllData();
+
+    </script>
+
+</body>
+
+</html>
